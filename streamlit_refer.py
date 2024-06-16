@@ -1,30 +1,32 @@
-import streamlit as st
-import tiktoken
+# https://www.youtube.com/watch?v=xYNYNKJVa4E&t=159s
+
+import streamlit as st           # 
+import tiktoken # 토큰갯수 
 from loguru import logger
 
-from langchain.chains import ConversationalRetrievalChain
+from langchain.chains import ConversationalRetrievalChain                # 메모리 
 from langchain.chat_models import ChatOpenAI
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.document_loaders import Docx2txtLoader
 from langchain.document_loaders import UnstructuredPowerPointLoader
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter       # 텍스트 나눌때
+from langchain.embeddings import HuggingFaceEmbeddings                   # 임베이딩 모델
 
-from langchain.memory import ConversationBufferMemory
-from langchain.vectorstores import FAISS
+from langchain.memory import ConversationBufferMemory                    # 메노리 저장
+from langchain.vectorstores import FAISS                                 # 백터 스토어
 
 # from streamlit_chat import message
-from langchain.callbacks import get_openai_callback
-from langchain.memory import StreamlitChatMessageHistory
+from langchain.callbacks import get_openai_callback                      #
+from langchain.memory import StreamlitChatMessageHistory                 #
 
 def main():
-    st.set_page_config(
+    st.set_page_config(    # 페이지 타이틀 선언(익스트로워)
     page_title="DirChat",
-    page_icon=":books:")
+    page_icon=":books:")    
 
-    st.title("_Private Data :red[QA Chat]_ :books:")
+    st.title("_Private Data :red[QA Chat]_ :books:")    # 페이지 타이틀 
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
